@@ -31,6 +31,39 @@ public class Movie {
         this.priceCode = priceCode;
     }
 
+    public double getCharge(int daysRented) {
+        double result = 0;
+        switch (getPriceCode()) {
+            case Movie.REGULAR:
+                result += 2;
+                if (daysRented > 2) {
+                    result += (daysRented - 2) * 1.5;
+                }
+                break;
+            case Movie.NEW_RELEASE:
+                result += daysRented * 3;
+                break;
+            case Movie.CHILD_RENT:
+                result += 1.5;
+                if (daysRented > 3) {
+                    result += (daysRented - 3) * 1.5;
+                }
+                break;
+        }
+        return result;
+    }
+
+    public int getFrequentRenterPoints(int daysRented) {
+        // 租赁新片且租赁天数超过1天，积分+2
+        boolean flag = (getPriceCode() == Movie.NEW_RELEASE) && daysRented > 1;
+        if (flag) {
+            return 2;
+        }
+
+        // 其他情况积分+1
+        return 1;
+    }
+
 //  --------------- getter and setter ---------------
 
     public String getTitle() {

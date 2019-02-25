@@ -17,36 +17,11 @@ public class Rental {
     }
 
     public double getCharge() {
-        double result = 0;
-        switch (getMovie().getPriceCode()) {
-            case Movie.REGULAR:
-                result += 2;
-                if (getDaysRented() > 2) {
-                    result += (getDaysRented() - 2) * 1.5;
-                }
-                break;
-            case Movie.NEW_RELEASE:
-                result += getDaysRented() * 3;
-                break;
-            case Movie.CHILD_RENT:
-                result += 1.5;
-                if (getDaysRented() > 3) {
-                    result += (getDaysRented() - 3) * 1.5;
-                }
-                break;
-        }
-        return result;
+        return movie.getCharge(daysRented);
     }
 
     public int getFrequentRenterPoints() {
-        // 租赁新片且租赁天数超过1天，积分+2
-        boolean flag = (getMovie().getPriceCode() == Movie.NEW_RELEASE) && getDaysRented() > 1;
-        if (flag) {
-            return 2;
-        }
-
-        // 其他情况积分+1
-        return 1;
+        return movie.getFrequentRenterPoints(daysRented);
     }
 
 //  --------------- getter and setter ---------------
