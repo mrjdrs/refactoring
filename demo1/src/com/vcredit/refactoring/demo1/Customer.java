@@ -30,21 +30,9 @@ public class Customer {
 
         while (rentals.hasMoreElements()) {
             Rental each = (Rental) rentals.nextElement();
-
-            // determine amounts for each line
-            double thisAmount = each.getCharge();
-
-            // add frequent renter points
-            frequentRenterPoints++;
-
-            // add bonus for a two day new release rental
-            boolean flag = (each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDaysRented() > 1;
-            if (flag) {
-                frequentRenterPoints++;
-            }
-
-            result.append("\t").append(each.getMovie().getTitle()).append("\t").append(thisAmount).append("\n");
-            totalAmount += thisAmount;
+            frequentRenterPoints += each.getFrequentRenterPoints();
+            result.append("\t").append(each.getMovie().getTitle()).append("\t").append(each.getCharge()).append("\n");
+            totalAmount += each.getCharge();
         }
 
         // add footer lines

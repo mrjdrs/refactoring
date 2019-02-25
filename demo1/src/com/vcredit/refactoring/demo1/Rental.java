@@ -38,6 +38,17 @@ public class Rental {
         return result;
     }
 
+    public int getFrequentRenterPoints() {
+        // 租赁新片且租赁天数超过1天，积分+2
+        boolean flag = (getMovie().getPriceCode() == Movie.NEW_RELEASE) && getDaysRented() > 1;
+        if (flag) {
+            return 2;
+        }
+
+        // 其他情况积分+1
+        return 1;
+    }
+
 //  --------------- getter and setter ---------------
 
     public Movie getMovie() {
